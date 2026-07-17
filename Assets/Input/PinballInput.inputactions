@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "PinballInput",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "e3814d86-45a6-4a97-930a-72eafde8e135",
+            "actions": [
+                {
+                    "name": "Launch",
+                    "type": "Button",
+                    "id": "53149620-4e15-4e3e-a4d7-aa89dafbc2a7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e69a6350-3f8c-4420-ac2b-ad85f2abc74f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Launch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
