@@ -100,6 +100,24 @@ public partial class @PinballInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftFlipper"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e02a86c-fba2-4ec3-a676-ba2bef76815f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightFlipper"",
+                    ""type"": ""Button"",
+                    ""id"": ""9e300d5d-119f-4331-a58a-b014b80e9c59"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -113,6 +131,28 @@ public partial class @PinballInput: IInputActionCollection2, IDisposable
                     ""action"": ""Launch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e5728b8-0d0c-471a-9cd0-0a4982194ced"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftFlipper"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da3f2a6c-6a38-42b9-a67e-a9ea6722b677"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightFlipper"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -122,6 +162,8 @@ public partial class @PinballInput: IInputActionCollection2, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Launch = m_Gameplay.FindAction("Launch", throwIfNotFound: true);
+        m_Gameplay_LeftFlipper = m_Gameplay.FindAction("LeftFlipper", throwIfNotFound: true);
+        m_Gameplay_RightFlipper = m_Gameplay.FindAction("RightFlipper", throwIfNotFound: true);
     }
 
     ~@PinballInput()
@@ -203,6 +245,8 @@ public partial class @PinballInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Launch;
+    private readonly InputAction m_Gameplay_LeftFlipper;
+    private readonly InputAction m_Gameplay_RightFlipper;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -218,6 +262,14 @@ public partial class @PinballInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/Launch".
         /// </summary>
         public InputAction @Launch => m_Wrapper.m_Gameplay_Launch;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/LeftFlipper".
+        /// </summary>
+        public InputAction @LeftFlipper => m_Wrapper.m_Gameplay_LeftFlipper;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/RightFlipper".
+        /// </summary>
+        public InputAction @RightFlipper => m_Wrapper.m_Gameplay_RightFlipper;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -247,6 +299,12 @@ public partial class @PinballInput: IInputActionCollection2, IDisposable
             @Launch.started += instance.OnLaunch;
             @Launch.performed += instance.OnLaunch;
             @Launch.canceled += instance.OnLaunch;
+            @LeftFlipper.started += instance.OnLeftFlipper;
+            @LeftFlipper.performed += instance.OnLeftFlipper;
+            @LeftFlipper.canceled += instance.OnLeftFlipper;
+            @RightFlipper.started += instance.OnRightFlipper;
+            @RightFlipper.performed += instance.OnRightFlipper;
+            @RightFlipper.canceled += instance.OnRightFlipper;
         }
 
         /// <summary>
@@ -261,6 +319,12 @@ public partial class @PinballInput: IInputActionCollection2, IDisposable
             @Launch.started -= instance.OnLaunch;
             @Launch.performed -= instance.OnLaunch;
             @Launch.canceled -= instance.OnLaunch;
+            @LeftFlipper.started -= instance.OnLeftFlipper;
+            @LeftFlipper.performed -= instance.OnLeftFlipper;
+            @LeftFlipper.canceled -= instance.OnLeftFlipper;
+            @RightFlipper.started -= instance.OnRightFlipper;
+            @RightFlipper.performed -= instance.OnRightFlipper;
+            @RightFlipper.canceled -= instance.OnRightFlipper;
         }
 
         /// <summary>
@@ -308,5 +372,19 @@ public partial class @PinballInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLaunch(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LeftFlipper" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLeftFlipper(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RightFlipper" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRightFlipper(InputAction.CallbackContext context);
     }
 }
