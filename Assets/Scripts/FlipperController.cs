@@ -3,18 +3,22 @@ using UnityEngine.InputSystem;
 
 public class FlipperController : MonoBehaviour
 {
-    [Header("Settings")]
     [SerializeField] private bool isLeftFlipper;
-    [SerializeField] private float restAngle = 0f;
-    [SerializeField] private float activeAngle = 55f;
-    [SerializeField] private float rotateSpeed = 700f;
+
+    [SerializeField] private float pressedAngle = 55f;
+    [SerializeField] private float releasedAngle = 0f;
+
+    private HingeJoint hinge;
+    private JointSpring spring;
 
     private PinballInput input;
 
-    private bool isPressed;
-
     private void Awake()
     {
+        hinge = GetComponent<HingeJoint>();
+
+        spring = hinge.spring;
+
         input = new PinballInput();
     }
 
@@ -24,13 +28,13 @@ public class FlipperController : MonoBehaviour
 
         if (isLeftFlipper)
         {
-            input.Gameplay.LeftFlipper.started += _ => isPressed = true;
-            input.Gameplay.LeftFlipper.canceled += _ => isPressed = false;
+            input.Gameplay.LeftFlipper.started += _ => SetAngle(pressedAngle);
+            input.Gameplay.LeftFlipper.canceled += _ => SetAngle(releasedAngle);
         }
         else
         {
-            input.Gameplay.RightFlipper.started += _ => isPressed = true;
-            input.Gameplay.RightFlipper.canceled += _ => isPressed = false;
+            input.Gameplay.RightFlipper.started += _ => SetAngle(-pressedAngle);
+            input.Gameplay.RightFlipper.canceled += _ => SetAngle(releasedAngle);
         }
     }
 
@@ -39,16 +43,9 @@ public class FlipperController : MonoBehaviour
         input.Disable();
     }
 
-    private void Update()
+    private void SetAngle(float angle)
     {
-        float targetAngle = isPressed ? activeAngle : restAngle;
-
-        Quaternion targetRotation =
-            Quaternion.Euler(0, targetAngle, 0);
-
-        transform.localRotation = Quaternion.RotateTowards(
-            transform.localRotation,
-            targetRotation,
-            rotateSpeed * Time.deltaTime);
+        spring.targetPosition = angle;
+        hinge.spring = spring;
     }
 }
